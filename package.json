@@ -1,13 +1,18 @@
 {
   "name": "penink-web",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "node server.js",
+    "dev": "PORT=17020 next dev",
+    "//dev": "PORT=17020 NODE_ENV=development node server.js",
     "build": "next build",
-    "start": "NODE_ENV=production node server.js",
+    "start": "PORT=17020 next start",
+    "//start": "NODE_ENV=production node server.js",
+    "zip": "rm -rf release/* && node scripts/zip.js",
     "lint": "next lint"
   },
   "dependencies": {
+    "bootstrap": "^5.1.3",
     "next": "12.0.4",
     "react": "17.0.2",
     "react-dom": "17.0.2"
@@ -15,6 +20,7 @@
   "devDependencies": {
     "@types/node": "16.11.11",
     "@types/react": "17.0.37",
+    "adm-zip": "^0.5.9",
     "eslint": "7",
     "eslint-config-next": "12.0.4",
     "typescript": "4.5.2"

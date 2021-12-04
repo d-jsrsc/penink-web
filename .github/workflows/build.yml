@@ -1,0 +1,40 @@
+name: Build
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build:
+    name: build
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        # node-version: [10.x, 16.x]
+        node-version: [16.x]
+        # os: [ubuntu-latest, windows-latest, macOS-latest]
+        os: [ubuntu-latest]
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Get the tag name
+      run: echo "TAG=${GITHUB_REF/refs\/tags\//}" >> $GITHUB_ENV
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: npm install
+      run: npm install
+    - name: compile
+      run: npm run build
+    - name: zip
+      run: npm run zip
+
+    - name: Upload zip to release
+      uses: actions/upload-artifact@v2
+      with:
+        name: peninkweb.release.${{ env.TAG }}.zip
+        path: "release/*.zip"
