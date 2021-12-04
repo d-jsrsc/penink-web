@@ -1,6 +1,9 @@
 const { createServer } = require("http");
 const { parse } = require("url");
+const config = require("config");
 const next = require("next");
+
+const PORT = config.get("port");
 
 const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
@@ -24,8 +27,8 @@ app.prepare().then(() => {
     // } else {
     handle(req, res, parsedUrl);
     // }
-  }).listen(17020, (err) => {
+  }).listen(PORT, (err) => {
     if (err) throw err;
-    console.log("> Ready on http://localhost:17020");
+    console.log(`> Ready on http://localhost:${PORT}`);
   });
 });
