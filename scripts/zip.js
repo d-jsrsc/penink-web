@@ -3,6 +3,7 @@ const AdmZip = require("adm-zip");
 
 const zip = new AdmZip();
 zip.addLocalFolder("./.next", ".next");
+zip.addLocalFile("./next.config.js");
 zip.addLocalFolder("./config", "config");
 zip.addLocalFile("./package.json");
 zip.addLocalFile("./package-lock.json");

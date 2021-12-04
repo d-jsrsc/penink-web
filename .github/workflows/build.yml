@@ -36,5 +36,5 @@ jobs:
     - name: Upload zip to release
       uses: actions/upload-artifact@v2
       with:
-        name: peninkweb.release.${{ env.TAG }}.zip
+        name: release.${{ env.TAG }}.zip
         path: "release/*.zip"
