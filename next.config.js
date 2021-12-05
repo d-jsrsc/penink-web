@@ -2,6 +2,10 @@
 module.exports = {
   reactStrictMode: true,
   // basePath: '/docs',
-  env: {
-  }
-}
+  env: {},
+  api: {
+    bodyParser: {
+      sizeLimit: "1mb",
+    },
+  },
+};

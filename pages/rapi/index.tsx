@@ -1,48 +1,33 @@
-import type { NextPage, InferGetServerSidePropsType } from "next";
-import { GetServerSideProps } from "next";
-import axios from "axios";
+import type { NextPage } from "next";
+import Head from "next/head";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import packageInfo from "../package.json";
-import Header from "../components/Header";
-
-type IndexProps = {
-  userInfo: {
-    nickname: string;
-  } | null;
-};
-
-export const getServerSideProps: GetServerSideProps<IndexProps> = async (
-  context
-) => {
-  const { req, res, query, params } = context;
-  let userInfo = null;
-  try {
-    const apiRes = await axios.get("http://127.0.0.1:7777/api/offical/index", {
-      headers: {
-        cookie: req.headers.cookie,
-        ...(req.headers as any),
-        // ...req.cookies,
-      },
-    });
-    console.info(apiRes.data);
-    userInfo = apiRes.data.userInfo;
-  } catch (error) {}
-
-  return {
-    props: {
-      userInfo,
-    },
-  };
-};
-
-function Index({
-  userInfo,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+const Home: NextPage = () => {
   return (
     <>
-      <Header />
+      <Head>
+        <meta charSet="UTF-8" />
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
+        />
+        <link
+          href="https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css"
+          rel="stylesheet"
+        />
+        <title>Frontend Bootcamp</title>
+        <meta name="description" content="the mark" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <>
         {/* <nav className="navbar navbar-expand-lg bg-dark navbar-dark py-3 fixed-top">
           <div className="container">
@@ -81,12 +66,11 @@ function Index({
           </div>
         </nav> */}
         <div>
-          <span>version {packageInfo.version}</span>
+          <span>rapi</span>
         </div>
-        <div>{userInfo?.nickname}</div>
       </>
     </>
   );
-}
+};
 
-export default Index;
+export default Home;
