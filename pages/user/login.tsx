@@ -1,20 +1,24 @@
 import type { NextPage, InferGetServerSidePropsType } from "next";
 import Head from "next/head";
+import Link from "next/link";
 import { GetServerSideProps } from "next";
 import axios from "axios";
 
-import LoginForm from "../components/LoginForm";
+import LoginForm from "../../components/LoginForm";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { req, res, query, params } = context;
   let stillInLogin = false;
   try {
-    const apiRes = await axios.get("http://127.0.0.1:7777/api/login/check", {
-      headers: {
-        ...(req.headers as any),
-        // ...req.cookies,
-      },
-    });
+    const apiRes = await axios.get(
+      "http://127.0.0.1:7777/api/user/login/check",
+      {
+        headers: {
+          ...(req.headers as any),
+          // ...req.cookies,
+        },
+      }
+    );
     stillInLogin = apiRes.data?.check === true;
   } catch (error) {
   } finally {
@@ -43,6 +47,9 @@ function Login({
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <LoginForm></LoginForm>
+      <Link href="/">
+        <a>Register</a>
+      </Link>
     </>
   );
 }

@@ -1,18 +1,18 @@
 import type { InferGetServerSidePropsType } from "next";
 import { GetServerSideProps } from "next";
-import axios from "axios";
 import { useState } from "react";
+import axios from "axios";
 
-import packageInfo from "../package.json";
 import HtmlHead from "../components/HtmlHead";
 import Nav from "../components/Nav";
+
 import type { UserInfo } from "../types";
 
-type IndexProps = {
+type EventsProps = {
   userInfo: UserInfo | null;
 };
 
-export const getServerSideProps: GetServerSideProps<IndexProps> = async (
+export const getServerSideProps: GetServerSideProps<EventsProps> = async (
   context
 ) => {
   const { req, res, query, params } = context;
@@ -22,10 +22,8 @@ export const getServerSideProps: GetServerSideProps<IndexProps> = async (
       headers: {
         cookie: req.headers.cookie,
         ...(req.headers as any),
-        // ...req.cookies,
       },
     });
-    // console.info(apiRes.data);
     userInfo = apiRes.data.userInfo;
   } catch (error) {}
 
@@ -36,23 +34,17 @@ export const getServerSideProps: GetServerSideProps<IndexProps> = async (
   };
 };
 
-function Index({
+function Events({
   userInfo,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const [user, setUser] = useState(userInfo);
-
   return (
     <>
-      <HtmlHead />
-      <>
-        <Nav userInfo={user} setUser={setUser} />
-        <div>
-          <span>version {packageInfo.version}</span>
-        </div>
-        <div>{user?.nickname}</div>
-      </>
+      <HtmlHead title={"Events"} />
+      <Nav userInfo={user} setUser={setUser}></Nav>
+      <main>Events</main>
     </>
   );
 }
 
-export default Index;
+export default Events;
