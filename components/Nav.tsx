@@ -1,19 +1,50 @@
 import React from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import axios from "axios";
 
 import type { UserInfo } from "../types";
 
-const Nav: React.FC<{ userInfo: UserInfo | null; setUser: Function }> = ({
-  children,
-  userInfo,
-  setUser,
-}) => {
+const Nav: React.FC<{
+  userInfo?: UserInfo | null;
+  setUser?: Function;
+}> = ({ children, userInfo, setUser }) => {
   const logout = async () => {
     const apiRes = await axios.post("/api/user/logout");
-    // console.log(apiRes.data, apiRes.status);
-    setUser({});
+    setUser && setUser({});
   };
+  const router = useRouter();
+  const { pathname } = router;
+  const Navs = [
+    {
+      value: "Home",
+      href: "/",
+    },
+    {
+      value: "Events",
+      href: "/events",
+    },
+    // {
+    //   value: "Blog",
+    //   href: "/blog",
+    // },
+    // {
+    //   value: "About",
+    //   href: "/about",
+    // },
+  ].map((item) => {
+    return (
+      <li className="nav-item" key={item.href}>
+        <Link href={item.href}>
+          <a
+            className={`nav-link ${(pathname === item.href && "active") || ""}`}
+          >
+            {item.value}
+          </a>
+        </Link>
+      </li>
+    );
+  });
   return (
     <>
       <div className="navbar py-4">&nbsp;</div>
@@ -34,21 +65,8 @@ const Nav: React.FC<{ userInfo: UserInfo | null; setUser: Function }> = ({
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <li className="nav-item">
-                <Link href="/">
-                  <a className="nav-link" aria-current="page">
-                    Home
-                  </a>
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link href="/events">
-                  <a className="nav-link">Events</a>
-                </Link>
-              </li>
-            </ul>
-            {/*userInfo?.email ? (
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0">{Navs}</ul>
+            {userInfo?.email ? (
               <li className="d-flex nav-item dropdown">
                 <a
                   className="nav-link dropdown-toggle"
@@ -64,17 +82,17 @@ const Nav: React.FC<{ userInfo: UserInfo | null; setUser: Function }> = ({
                   <li>
                     <a
                       className="dropdown-item"
-                      href={`//${userInfo.author}.penink.com/manage`}
+                      href={`//${userInfo.author}.penink.com`}
                     >
-                      {userInfo.email}
+                      我的主页
                     </a>
                   </li>
                   <li>
                     <a
                       className="dropdown-item"
-                      href={`//${userInfo.author}.penink.com`}
+                      href={`//${userInfo.author}.penink.com/manage`}
                     >
-                      {userInfo.author}
+                      控制台
                     </a>
                   </li>
                   <li>
@@ -88,22 +106,23 @@ const Nav: React.FC<{ userInfo: UserInfo | null; setUser: Function }> = ({
                         logout();
                       }}
                     >
-                      Logout
+                      登出
                     </a>
                   </li>
                 </ul>
               </li>
             ) : (
-              <div className="d-flex">
-                <Link href="/user/register">
-                  <a>Register</a>
-                </Link>
-
+              <nav className="d-inline-flex mt-2 mt-md-0 ms-md-auto">
                 <Link href="/user/login">
-                  <a>Login</a>
+                  <a className="me-3 py-2 text-dark text-decoration-none">
+                    登录
+                  </a>
                 </Link>
-              </div>
-            )*/}
+                <Link href="/user/register">
+                  <a className="py-2 text-dark text-decoration-none">注册</a>
+                </Link>
+              </nav>
+            )}
           </div>
         </div>
       </nav>

@@ -28,34 +28,119 @@ export default function Form() {
   };
 
   return (
-    <form onSubmit={registerUser}>
-      <label htmlFor="email">email</label>
-      <input
-        id="email"
-        name="email"
-        type="text"
-        autoComplete="email"
-        required
-      />
-      <label htmlFor="author">author</label>
-      <input
-        id="author"
-        name="author"
-        type="text"
-        autoComplete="author"
-        required
-      />
-      <label htmlFor="nickname">nickname</label>
-      <input
-        id="nickname"
-        name="nickname"
-        type="text"
-        autoComplete="nickname"
-        required
-      />
-      <label htmlFor="password">password</label>
-      <input id="password" name="password" type="password" required />
-      <button type="submit">Register</button>
-    </form>
+    <div className="container mt-5">
+      <div className="row d-flex justify-content-center">
+        <div className="col-md-6">
+          <div className="card px-5 py-5">
+            <style jsx>{`
+              .card {
+                border: none;
+                height: 320px;
+              }
+
+              .forms-inputs {
+                position: relative;
+              }
+
+              .forms-inputs span {
+                position: absolute;
+                top: -18px;
+                left: 10px;
+                background-color: #fff;
+                padding: 5px 10px;
+                font-size: 15px;
+              }
+
+              .forms-inputs input {
+                height: 50px;
+                border: 2px solid #eee;
+                width: 100%;
+                padding: 0 10px;
+              }
+
+              .forms-inputs input:focus {
+                box-shadow: none;
+                outline: none;
+                border: 2px solid #000;
+              }
+
+              .btn {
+                height: 50px;
+              }
+
+              .success-data {
+                display: flex;
+                flex-direction: column;
+              }
+
+              .bxs-badge-check {
+                font-size: 90px;
+              }
+            `}</style>
+            <form onSubmit={registerUser}>
+              <div className="forms-inputs mb-4">
+                <span>邮箱</span>
+                <input
+                  id="email"
+                  name="email"
+                  type="text"
+                  autoComplete="email"
+                  required
+                />
+                <div className="invalid-feedback">
+                  A valid email is required!
+                </div>
+              </div>
+              <div className="forms-inputs mb-4">
+                <span>用户名</span>
+                <input
+                  id="author"
+                  name="author"
+                  type="text"
+                  autoComplete="author"
+                  required
+                />
+                <div className="invalid-feedback">
+                  A valid email is required!
+                </div>
+              </div>
+              <div className="forms-inputs mb-4">
+                <span>昵称</span>
+                <input
+                  id="nickname"
+                  name="nickname"
+                  type="text"
+                  autoComplete="nickname"
+                  required
+                />
+                <div className="invalid-feedback">
+                  A valid email is required!
+                </div>
+              </div>
+
+              <div className="forms-inputs mb-4">
+                <span>密码</span>
+                <input id="password" name="password" type="password" required />
+                <div className="invalid-feedback">
+                  Password must be 8 character!
+                </div>
+              </div>
+              {/* <div className="forms-inputs mb-4">
+                <span>重复密码</span>
+                <input id="password" name="password" type="password" required />
+                <div className="invalid-feedback">
+                  Password must be 8 character!
+                </div>
+              </div> */}
+              <div className="mb-3">
+                <button type="submit" className="btn btn-dark w-100">
+                  注册
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

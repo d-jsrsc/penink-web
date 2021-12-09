@@ -20,17 +20,18 @@ export const getServerSideProps: GetServerSideProps<IndexProps> = async (
   const { req, res, query, params } = context;
   let userInfo = null;
   try {
-    const apiRes = await axios.get("http://127.0.0.1:7777/api/offical/index", {
-      headers: {
-        cookie: req.headers.cookie,
-        ...(req.headers as any),
-        // ...req.cookies,
-      },
-    });
-    // console.info(apiRes.data);
+    const apiRes = await axios.get(
+      `${process.env.API_SERVER}/api/offical/index`,
+      {
+        headers: {
+          cookie: req.headers.cookie,
+          ...(req.headers as any),
+          // ...req.cookies,
+        },
+      }
+    );
     userInfo = apiRes.data.userInfo;
   } catch (error) {}
-
   return {
     props: {
       userInfo,
