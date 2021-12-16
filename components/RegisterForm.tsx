@@ -1,7 +1,15 @@
-import React from "react";
-import axios from "axios";
+import React, { useState } from "react";
+import axios, { AxiosError } from "axios";
+import * as EmailValidator from "email-validator";
+import { ToastContainer, toast } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Form() {
+  const [hasEmail, setHasEmail] = useState(false);
+  const [emailValid, setEmailValid] = useState(false);
+  const [canGetVerifyCode, setCanGetVerifyCode] = useState(true);
+
   const registerUser = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -10,20 +18,61 @@ export default function Form() {
       nickname: { value: string };
       email: { value: string };
       password: { value: string };
+      verifycode: { value: string };
+      invitationcode: { value: string };
     };
+    try {
+      const res = await axios.post("/api/user/register", {
+        nickname: target.nickname.value,
+        password: target.password.value,
+        author: target.author.value,
+        email: target.email.value,
+        verifycode: target.verifycode.value,
+        invitationcode: target.invitationcode.value,
+      });
 
-    const res = await axios.post("/api/user/register", {
-      nickname: target.nickname.value,
-      password: target.password.value,
-      author: target.author.value,
-      email: target.email.value,
+      if (res.status === 200) {
+        window.location.href = "/user/login";
+      } else {
+        console.error("err", res.data);
+      }
+    } catch (error: any) {
+      const err = error as AxiosError;
+      console.error(err.response?.status);
+      toast.error(err.response?.data.msg, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: true,
+      });
+    }
+  };
+
+  const verifyCodeNotify = () =>
+    toast.success("发送成功", {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: true,
     });
+  const getVerifyCode = async () => {
+    if (!emailValid) return;
+    if (!canGetVerifyCode) return;
+    setCanGetVerifyCode(false);
+    const target = document.getElementById("email") as HTMLInputElement;
+    const email = target.value;
+    try {
+      const res = await axios.post("/api/user/verifycode", {
+        email,
+      });
 
-    const result = res.data;
-    if (res.status === 200) {
-      window.location.href = "/user/login";
-    } else {
+      if (res.status === 200) {
+        verifyCodeNotify();
+      } else {
+        console.error("err");
+      }
+    } catch (error) {
       console.error("err");
+    } finally {
+      setCanGetVerifyCode(true);
     }
   };
 
@@ -36,6 +85,7 @@ export default function Form() {
               .card {
                 border: none;
                 height: 320px;
+                user-select: none;
               }
 
               .forms-inputs {
@@ -64,6 +114,18 @@ export default function Form() {
                 border: 2px solid #000;
               }
 
+              .codebtn {
+                position: absolute;
+                right: 0;
+                top: 0;
+                height: 50px;
+                padding: 0 10px;
+                border: 1px solid #eee;
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+              }
+
               .btn {
                 height: 50px;
               }
@@ -86,9 +148,34 @@ export default function Form() {
                   type="text"
                   autoComplete="email"
                   required
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    if (value) {
+                      setHasEmail(true);
+                      setEmailValid(EmailValidator.validate(value));
+                    } else setHasEmail(false);
+                  }}
                 />
-                <div className="invalid-feedback">
+                <div
+                  className="invalid-feedback"
+                  style={{
+                    display: hasEmail ? (emailValid ? "none" : "block") : "",
+                  }}
+                >
                   A valid email is required!
+                </div>
+              </div>
+              <div className="forms-inputs mb-4">
+                <span>验证码</span>
+                <input id="verifycode" name="verifycode" type="text" required />
+                <div
+                  className="codebtn"
+                  onClick={getVerifyCode}
+                  style={{
+                    cursor: canGetVerifyCode ? "pointer" : "not-allowed",
+                  }}
+                >
+                  获取验证码
                 </div>
               </div>
               <div className="forms-inputs mb-4">
@@ -125,6 +212,15 @@ export default function Form() {
                   Password must be 8 character!
                 </div>
               </div>
+              <div className="forms-inputs mb-4">
+                <span>邀请码</span>
+                <input
+                  id="invitationcode"
+                  name="invitationcode"
+                  type="text"
+                  required
+                />
+              </div>
               {/* <div className="forms-inputs mb-4">
                 <span>重复密码</span>
                 <input id="password" name="password" type="password" required />
@@ -141,6 +237,7 @@ export default function Form() {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 }

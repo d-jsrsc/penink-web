@@ -90,6 +90,22 @@ const Nav: React.FC<{
                   <li>
                     <a
                       className="dropdown-item"
+                      href={`//${userInfo.author}.penink.com/@/writer`}
+                    >
+                      新文章
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      className="dropdown-item"
+                      href={`//${userInfo.author}.penink.com/@/editor`}
+                    >
+                      新页面
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      className="dropdown-item"
                       href={`//${userInfo.author}.penink.com/manage`}
                     >
                       控制台
