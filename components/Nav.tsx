@@ -82,7 +82,7 @@ const Nav: React.FC<{
                   <li>
                     <a
                       className="dropdown-item"
-                      href={`//${userInfo.author}.penink.com`}
+                      href={`//${userInfo.author}.penink.club`}
                     >
                       我的主页
                     </a>
@@ -90,7 +90,7 @@ const Nav: React.FC<{
                   <li>
                     <a
                       className="dropdown-item"
-                      href={`//${userInfo.author}.penink.com/@/writer`}
+                      href={`//${userInfo.author}.penink.club/@/writer`}
                     >
                       新文章
                     </a>
@@ -98,7 +98,7 @@ const Nav: React.FC<{
                   <li>
                     <a
                       className="dropdown-item"
-                      href={`//${userInfo.author}.penink.com/@/editor`}
+                      href={`//${userInfo.author}.penink.club/@/editor`}
                     >
                       新页面
                     </a>
@@ -106,7 +106,7 @@ const Nav: React.FC<{
                   <li>
                     <a
                       className="dropdown-item"
-                      href={`//${userInfo.author}.penink.com/manage`}
+                      href={`//${userInfo.author}.penink.club/manage`}
                     >
                       控制台
                     </a>
