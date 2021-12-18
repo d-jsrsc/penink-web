@@ -30,7 +30,7 @@ export const getServerSideProps: GetServerSideProps<IndexProps> = async (
         },
       }
     );
-    userInfo = apiRes.data.userInfo;
+    userInfo = apiRes.data.userInfo || null;
   } catch (error) {}
   return {
     props: {

@@ -1,19 +1,19 @@
 import type { EventData } from "../types";
 const datas: EventData[] = [
-  {
-    time: "2021-07-22",
-    title: "“双减”来袭，我被裁员",
-    content: "“双减”是一切的起点，没有这个起点，也不会有接下来的机缘巧合。",
-  },
+  // {
+  //   time: "2021-07-22",
+  //   title: "“双减”来袭，我被裁员",
+  //   content: "“双减”是一切的起点，没有这个起点，也不会有接下来的机缘巧合。",
+  // },
   {
     time: "2021-08",
-    title: "网页编辑器",
-    content: `在被裁员后，便开始和各种面试官交流。其中一两个提到在做低代码平台，大意就是可以让运营能很快的搭建出 <code>H5</code> 页面来，于是就想着我似乎也可以搞一个出来。`,
+    title: "想法",
+    content: `在一些交流中了解到 h5 页面搭建。大意就是可以让运营能很快的搭建出 <code>H5</code> 页面来，于是就想着我似乎也可以搞一个出来。`,
   },
   {
     time: "2021-08-22",
     title: "网页编辑器项目初始化",
-    content: "因为整个 8 月都在面试，所以才到月底才开始实施。",
+    content: "因为整个 8 月都在忙，所以才到月底才开始实施。",
     img: "/events/initproj.png",
   },
   {
@@ -64,11 +64,11 @@ const datas: EventData[] = [
     imgClick: "https://www.bilibili.com/video/BV13P4y1G7YS/",
     img: "/events/chstructure.png",
   },
-  {
-    time: "以后",
-    title: "迭代，完善",
-    content:
-      "网页编辑器还可以再做些模版，富文本编辑器再支持下 table 和 latex。",
-  },
+  // {
+  //   time: "以后",
+  //   title: "迭代，完善",
+  //   content:
+  //     "网页编辑器还可以再做些模版，富文本编辑器再支持下 table 和 latex。",
+  // },
 ];
 export default datas;

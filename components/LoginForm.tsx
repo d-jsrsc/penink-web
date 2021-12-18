@@ -1,5 +1,5 @@
 import React from "react";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 export default function Form() {
   const registerUser = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -10,16 +10,22 @@ export default function Form() {
       password: { value: string };
     };
 
-    const res = await axios.post("/api/user/login", {
-      email: target.email.value,
-      password: target.password.value,
-    });
+    try {
+      const res = await axios.post("/api/user/login", {
+        email: target.email.value,
+        password: target.password.value,
+      });
 
-    const result = res.data;
-    if (res.status === 200) {
-      window.location.href = "/";
-    } else {
-      console.error("err");
+      console.log(res.data);
+      const result = res.data;
+      if (res.status === 200) {
+        window.location.href = "/";
+      }
+    } catch (error) {
+      const err = error as AxiosError;
+      const res = err.response;
+      const msg = res?.data.message;
+      alert(msg);
     }
   };
 

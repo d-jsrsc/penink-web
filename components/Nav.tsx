@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import axios from "axios";
 
-import type { UserInfo } from "../types";
+import type { UserInfo } from "@/types";
 
 const Nav: React.FC<{
   userInfo?: UserInfo | null;
