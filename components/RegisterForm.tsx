@@ -5,6 +5,18 @@ import { ToastContainer, toast } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
 
+const reserved = [
+  "onepiece",
+  "baby",
+  "baobao",
+  "gov",
+  "rs",
+  "javascript",
+  "admin",
+  "alpha",
+  "release",
+];
+
 export default function Form() {
   const [hasEmail, setHasEmail] = useState(false);
   const [emailValid, setEmailValid] = useState(false);
@@ -21,6 +33,8 @@ export default function Form() {
       verifycode: { value: string };
       invitationcode: { value: string };
     };
+    if (target.author.value.length < 5) return;
+    if (reserved.includes(target.author.value)) return;
     try {
       const res = await axios.post("/api/user/register", {
         nickname: target.nickname.value,
