@@ -5,6 +5,8 @@ import axios from "axios";
 
 import type { UserInfo } from "@/types";
 
+const siteDomain = process.env.NEXT_PUBLIC_MAIN_SITE_DOMAIN;
+
 const Nav: React.FC<{
   userInfo?: UserInfo | null;
   setUser?: Function;
@@ -82,7 +84,7 @@ const Nav: React.FC<{
                   <li>
                     <a
                       className="dropdown-item"
-                      href={`//${userInfo.author}.penink.club`}
+                      href={`//${userInfo.author}.${siteDomain}`}
                     >
                       我的主页
                     </a>
@@ -90,7 +92,7 @@ const Nav: React.FC<{
                   <li>
                     <a
                       className="dropdown-item"
-                      href={`//${userInfo.author}.penink.club/@/writer`}
+                      href={`//${userInfo.author}.${siteDomain}/@/writer`}
                     >
                       新文章
                     </a>
@@ -98,7 +100,7 @@ const Nav: React.FC<{
                   <li>
                     <a
                       className="dropdown-item"
-                      href={`//${userInfo.author}.penink.club/@/editor`}
+                      href={`//${userInfo.author}.${siteDomain}/@/editor`}
                     >
                       新页面
                     </a>
@@ -106,7 +108,7 @@ const Nav: React.FC<{
                   <li>
                     <a
                       className="dropdown-item"
-                      href={`//${userInfo.author}.penink.club/manage`}
+                      href={`//${userInfo.author}.${siteDomain}/manage`}
                     >
                       控制台
                     </a>

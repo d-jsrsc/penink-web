@@ -60,9 +60,16 @@ const datas: EventData[] = [
     time: "2021-12-06",
     title: "网站和二级网站",
     content:
-      "原本想着直接拿 Pug 做的，毕竟到了页面这一层也就剩渲染和 SEO 了，这些 Pug 解决似乎就足够了，但最后还是被我用 Nextjs 替换了。替换为 Nextjs，直接改了之前的网络架构，所以也拿视频记录了下。",
-    imgClick: "https://www.bilibili.com/video/BV13P4y1G7YS/",
-    img: "/events/chstructure.png",
+      "原本想着直接拿 Pug 做的，毕竟到了页面这一层也就剩渲染和 SEO 了，这些 Pug 解决似乎就足够了，但最后还是被我用 Nextjs 替换了。",
+    // imgClick: "https://www.bilibili.com/video/BV13P4y1G7YS/",
+    // img: "/events/chstructure.png",
+  },
+  {
+    time: "2021-12-19",
+    title: "任督二脉",
+    content: "各个主要部分已经打通，达到可试用阶段。",
+    // imgClick: "https://www.bilibili.com/video/BV13P4y1G7YS/",
+    // img: "/events/chstructure.png",
   },
   // {
   //   time: "以后",

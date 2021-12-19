@@ -19,6 +19,7 @@ export const getServerSideProps: GetServerSideProps<IndexProps> = async (
 ) => {
   const { req, res, query, params } = context;
   let userInfo = null;
+  console.log("index", `${process.env.API_SERVER}/api/offical/index`);
   try {
     const apiRes = await axios.get(
       `${process.env.API_SERVER}/api/offical/index`,
@@ -70,19 +71,6 @@ function Index({
             {intros.map((item, index) => {
               return <IntroCard key={index} {...item} />;
             })}
-          </div>
-        </div>
-      </section>
-
-      <section id="articles" className="p-5">
-        <div className="container">
-          {/* <h2 className="text-center text-white">Our Instructors</h2>
-          <p className="lead text-center text-white mb-5">
-            Our instructors all have 5+ years working as a web developer in the
-            industry
-          </p> */}
-          <div className="row g-4">
-            <ArticleCard />
           </div>
         </div>
       </section>
