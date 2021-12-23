@@ -12,6 +12,7 @@ import type { UserInfo } from "../types";
 
 type IndexProps = {
   userInfo: UserInfo | null;
+  stories: any[];
 };
 
 export const getServerSideProps: GetServerSideProps<IndexProps> = async (
@@ -19,6 +20,7 @@ export const getServerSideProps: GetServerSideProps<IndexProps> = async (
 ) => {
   const { req, res, query, params } = context;
   let userInfo = null;
+  let stories = [];
   console.log("index", `${process.env.API_SERVER}/api/offical/index`);
   try {
     const apiRes = await axios.get(
@@ -31,17 +33,31 @@ export const getServerSideProps: GetServerSideProps<IndexProps> = async (
         },
       }
     );
+    const storyRes = await axios.get(
+      `${process.env.API_SERVER}/api/offical/mainsite/story`,
+      {
+        headers: {
+          cookie: req.headers.cookie,
+          ...(req.headers as any),
+          // ...req.cookies,
+        },
+      }
+    );
+    // console.log("storyRes", storyRes.data);
+    stories = storyRes.data;
     userInfo = apiRes.data.userInfo || null;
   } catch (error) {}
   return {
     props: {
       userInfo,
+      stories,
     },
   };
 };
 
 function Index({
   userInfo,
+  stories,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const [user, setUser] = useState(userInfo);
 
@@ -73,6 +89,17 @@ function Index({
             })}
           </div>
         </div>
+      </section>
+
+      <section className="p-5">
+        {stories.map((item) => {
+          // console.log(item);
+          return (
+            <div key={item._id}>
+              <div>{item.story.title}</div>
+            </div>
+          );
+        })}
       </section>
 
       <Footer />
