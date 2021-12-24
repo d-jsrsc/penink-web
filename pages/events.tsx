@@ -28,7 +28,7 @@ export const getServerSideProps: GetServerSideProps<EventsProps> = async (
       `${process.env.API_SERVER}/api/offical/index`,
       {
         headers: {
-          cookie: req.headers.cookie,
+          cookie: req.headers.cookie || "",
           ...(req.headers as any),
         },
       }

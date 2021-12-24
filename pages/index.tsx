@@ -39,30 +39,37 @@ export const getServerSideProps: GetServerSideProps<IndexProps> = async (
   let userInfo = null;
   let stories = [];
   // console.log("index", `${process.env.API_SERVER}/api/offical/index`);
+  // TODO 聚合接口
   try {
     const apiRes = await axios.get(
       `${process.env.API_SERVER}/api/offical/index`,
       {
         headers: {
-          cookie: req.headers.cookie,
+          cookie: req.headers.cookie || "",
           ...(req.headers as any),
           // ...req.cookies,
         },
       }
     );
+    userInfo = apiRes.data.userInfo || null;
+  } catch (error) {
+    console.error(error);
+  }
+  try {
     const storyRes = await axios.get(
       `${process.env.API_SERVER}/api/offical/mainsite/story`,
       {
         headers: {
-          cookie: req.headers.cookie,
+          cookie: req.headers.cookie || "",
           ...(req.headers as any),
           // ...req.cookies,
         },
       }
     );
     stories = storyRes.data;
-    userInfo = apiRes.data.userInfo || null;
-  } catch (error) {}
+  } catch (error) {
+    console.error(error);
+  }
 
   return {
     props: {
@@ -175,7 +182,6 @@ function IntroCard({
 }
 
 function ArticleCard({ item }: { item: CardItem }) {
-  console.log(item);
   function goToStory() {
     window.open(
       `//${item.story.author.author}.${process.env.NEXT_PUBLIC_MAIN_SITE_DOMAIN}/story/${item.story._id}`,
