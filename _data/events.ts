@@ -71,6 +71,13 @@ const datas: EventData[] = [
     // imgClick: "https://www.bilibili.com/video/BV13P4y1G7YS/",
     // img: "/events/chstructure.png",
   },
+  {
+    time: "2021-12-25",
+    title: "练式（一）",
+    content: "文章支持自动保存。文章可以选择推到主站页面",
+    // imgClick: "https://www.bilibili.com/video/BV13P4y1G7YS/",
+    // img: "/events/chstructure.png",
+  },
   // {
   //   time: "以后",
   //   title: "迭代，完善",
