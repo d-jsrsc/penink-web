@@ -120,11 +120,11 @@ function Index({
       <HtmlHead />
 
       <Nav userInfo={user} setUser={setUser} />
-      <PageSpan label={"被想起的总是，你的故事"} />
+      <PageSpan label={"念起的，故事"} />
 
       <div className="container">
         <div className="row justify-content-around mt-4 pb-5">
-          <div className="col-8 col-md-8 col-sm-12">
+          <div className="col-lg-8 col-md-12 col-sm-12">
             <section className="mt-4">
               {stories.map((item) => {
                 if (item.story)
@@ -136,7 +136,7 @@ function Index({
               </div>
             </section>
           </div>
-          <div className="col-4">
+          <div className="col-lg-4 col-md-12 col-sm-12">
             <section
               className="mt-5"
               style={{
