@@ -12,8 +12,8 @@ export default function Form() {
 
     try {
       const res = await axios.post("/api/user/login", {
-        email: target.email.value,
-        password: target.password.value,
+        email: target.email.value.trim(),
+        password: target.password.value.trim(),
       });
 
       console.log(res.data);

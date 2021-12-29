@@ -37,12 +37,12 @@ export default function Form() {
     if (reserved.includes(target.author.value)) return;
     try {
       const res = await axios.post("/api/user/register", {
-        nickname: target.nickname.value,
-        password: target.password.value,
-        author: target.author.value,
-        email: target.email.value,
-        verifycode: target.verifycode.value,
-        invitationcode: target.invitationcode.value,
+        nickname: target.nickname.value.trim(),
+        password: target.password.value.trim(),
+        author: target.author.value.trim(),
+        email: target.email.value.trim(),
+        verifycode: target.verifycode.value.trim(),
+        invitationcode: target.invitationcode.value.trim(),
       });
 
       if (res.status === 200) {

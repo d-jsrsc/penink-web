@@ -5,11 +5,12 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import dayjs from "dayjs";
 
-import HtmlHead from "../components/HtmlHead";
-import Nav from "../components/Nav";
-import PageSpan from "../components/PageSpan";
-import Footer from "../components/Footer";
-import type { UserInfo } from "../types";
+import { PlaceholderLoading, PlaceholderNone } from "@/components/Placeholder";
+import HtmlHead from "@/components/HtmlHead";
+import Nav from "@/components/Nav";
+import PageSpan from "@/components/PageSpan";
+import Footer from "@/components/Footer";
+import type { UserInfo } from "@/types";
 
 type CardItem = {
   _id: string;
@@ -84,7 +85,8 @@ function Index({
   stories,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const [user, setUser] = useState(userInfo);
-
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [hasMoreData, setHasMoreData] = useState(false);
   useEffect(() => {
     const loadMore = document.getElementById("loadmore");
     if (!loadMore) return;
@@ -95,12 +97,24 @@ function Index({
 
     const observer = new IntersectionObserver((targets, obs) => {
       targets.forEach((entry) => {
-        if (entry.isIntersecting) console.log("----");
-        else console.log("=====");
+        if (entry.isIntersecting) {
+          setLoadingMore(true);
+          loadMoreApi();
+        } else {
+          console.log("=====");
+          // setLoadingMore(false);
+        }
       });
     }, options);
     observer.observe(loadMore);
   }, []);
+
+  function loadMoreApi() {
+    setTimeout(() => {
+      setLoadingMore(false);
+      setHasMoreData(false);
+    }, 5000);
+  }
 
   const intros = [
     {
@@ -131,8 +145,12 @@ function Index({
                   return <ArticleCard key={item._id} item={item} />;
                 return null;
               })}
-              <div id="loadmore" className="text-center py-5">
-                loadMore (TODO)
+              <div id="loadmore" className="card mt-5 me-5 border-0">
+                {loadingMore ? (
+                  <PlaceholderLoading />
+                ) : hasMoreData ? null : (
+                  <PlaceholderNone />
+                )}
               </div>
             </section>
           </div>
