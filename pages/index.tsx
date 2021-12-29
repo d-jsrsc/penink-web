@@ -19,6 +19,7 @@ type CardItem = {
   story: {
     _id: string;
     title: string;
+    tags: string[];
     author: {
       author: string;
       avator: string;
@@ -233,8 +234,29 @@ function ArticleCard({ item }: { item: CardItem }) {
                 <span className="ms-2">{item.story.author.nickname}</span>
               </a>
             </div>
-
-            <h3 className="card-title mb-3">{item.story.title}</h3>
+            <h3
+              className="card-title mb-3"
+              style={{
+                marginBottom: "5px!important",
+              }}
+            >
+              {item.story.title}
+            </h3>
+            <div style={{ marginBottom: "10px" }}>
+              {item.story.tags.map((t, i) => {
+                if (t == "转载")
+                  return (
+                    <span key={i} className="badge rounded-pill bg-primary">
+                      {t}
+                    </span>
+                  );
+                return (
+                  <span key={i} className="badge rounded-pill bg-secondary">
+                    {t}
+                  </span>
+                );
+              })}
+            </div>
             <p className="card-text">{item.intro}</p>
             <p className="card-text d-flex justify-content-between">
               <small className="text-muted">
